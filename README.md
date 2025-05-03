@@ -1,5 +1,7 @@
-# PPS-Unidad3Actividad-DeserializacionInsegura
-Explotación y Mitigación de vulnerabilidad de Deserialización Insegura
+# Deserialización insegura
+
+Explotación y Mitigación de la vulnerabilidad "**Deserialización Insegura**"
+
 Tenemos como objetivo:
 
 > - Ver cómo se pueden hacer ataques de Deserialización insegura.
@@ -25,20 +27,9 @@ Impacto de la Deserialización Insegura:
 • Modificación de datos internos en la aplicación.
 
 
-
-## ACTIVIDADES A REALIZAR
----
-> Lee detenidamente la sección de vulnerabilidades de subida de archivos.  de la página de PortWigger <https://portswigger.net/web-security/deserialization>
->
-> Lee el siguiente [documento sobre Explotación y Mitigación de ataques de Remote Code Execution](./files/ExplotacionYMitigacionDeserializacionInsegura.pdf)
-> 
-
-
-Vamos realizando operaciones:
-
 ### Iniciar entorno de pruebas
 
--Situáte en la carpeta de del entorno de pruebas de nuestro servidor LAMP e inicia el escenario multicontenedor escribiendo en el terminal de comandos o en el PowerShell:
+Nos situamos en la carpeta del entorno de pruebas de nuestro servidor LAMP e iniciamos el escenario multicontenedor escribiendo en el terminal de comandos o en el PowerShell:
 
 ~~~
 docker-compose up -d
@@ -52,7 +43,7 @@ La vulnerabilidad aparece debido a la creación de objetos, de manera que para p
 
 La vulnerabilidad se explota en la deserialización de los datos de usuario sin validación (unserialize($_GET['data'])) y permite modificar el objeto y otorgar privilegios no autorizados.
 
-Para mostrar las variables del objeto serializado vamos a crear un archivo vulnerable con nombre **MostrarObjeto.php** con el siguiente contenido:
+Para mostrar las variables del objeto serializado vamos a crear un archivo vulnerable [mostrarObjeto.php](./Recursos/mostrarObjeto.php) con el siguiente contenido:
 
 ~~~
 <?php
@@ -79,7 +70,7 @@ if (isset($_GET['data'])) {
 
 ~~~
 
-También vamos a crear un archivo con nombre GenerarObjeto.php para visualizar los datos serializados y mostrar un enlace a MostrarObjeto.php
+También vamos a crear un archivo con nombre [generarObjeto.php](./Recursos/generarObjeto.php) para visualizar los datos serializados y mostrar un enlace a **MostrarObjeto.php**:
 
 ~~~
 <?php
