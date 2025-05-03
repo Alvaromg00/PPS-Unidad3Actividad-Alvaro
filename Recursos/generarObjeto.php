@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <p>
             <strong>Enlace para probar:</strong><br>
-            <a href="MostrarObjeto.php?data=<?= urlencode($serialized) ?>" target="_blank">
-                MostrarObjeto.php?data=<?= htmlspecialchars(urlencode($serialized)) ?>
+            <a href="mostrarObjeto.php?data=<?= urlencode($serialized) ?>" target="_blank">
+                mostrarObjeto.php?data=<?= htmlspecialchars(urlencode($serialized)) ?>
             </a>
         </p>
     <?php endif; ?>
