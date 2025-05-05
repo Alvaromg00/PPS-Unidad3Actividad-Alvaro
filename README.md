@@ -419,7 +419,7 @@ Este código:
 
 - Aún permite ver el riesgo de __destruct() si no se valida bien.
 
-Para ello creamos el archivo **MostrarObjeto1.php**:
+Para ello creamos el archivo [mostrarObjeto1.php](Recursos/mostrarObjeto1.php):
 
 ~~~
 <?php
@@ -540,7 +540,7 @@ Usar *JSON* en lugar de **serialize()**.
 
 Además, si quieresmos reforzar aún más la seguridad, podemos comprobar que las claves que pasamos són únicamente las claves permitidas, así que corresponden con los tipos de datos que deberían. 
 
-✅ Creamos el archivo **MostrarObjetoJson.php**:
+✅ Creamos el archivo [mostrarObjetoJson.php](Recursos/mostrarObjetoJson.php):
 
 ~~~
 <?php
@@ -605,7 +605,7 @@ if (isset($_GET['data'])) {
 }
 ~~~
 
-Vamos a crear también el archivo **GenerarObjetoJson.php** que nos creará un objeto JSON Alumno que es administrador:
+Vamos a crear también el archivo [generarObjetoJson.php](Recursos/generarObjetoJson.php) que nos creará un objeto JSON Alumno que es administrador:
 
 ~~~
 <?php
@@ -625,11 +625,13 @@ echo urlencode(json_encode($data));
 http://localhost/GenerarObjetoJson.php
 ~~~
 
-- Objetnemos el JSON:
+- Obtenemos el JSON:
 
 ~~~
 %7B%22username%22%3A%22alumno%22%2C%22isAdmin%22%3Atrue%2C%22cmd%22%3A%22id%22%7D
 ~~~
+
+![json](images/10.png)
 
 - Concatenar el JSON con la url de MostrarObjetoJson.php
 
@@ -641,7 +643,7 @@ La ejecución solo se permitirá si los datos contienen exclusivamente **usernam
 
 Ahora nos muestra los datos que hemos introducido. Incluso si hemos intentado introducir un comando para explotar, nos muestra sólo el cómando, no lo ejecuta:
 
-![](images/UD13.png)
+![datos](images/11.png)
 
 - Y si probamos  modificando **MostrarObjetoJson.php** para que no esté incluído el comando:
 
