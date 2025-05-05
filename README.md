@@ -227,7 +227,7 @@ http://localhost/MostrarObjdeto.php?data=O%3A4%3A%22User%22%3A2%3A%7Bs%3A8%3A%22
 
 Si la clase User tiene un método **__destruct()**, se puede abusar para ejecutar código en el servidor. Este es el riesgo mayor al explotar la deserialización.
 
-Aquí tenemos nuestra clase modificada con **Destruct()**. Crea el fichero **GenerarObjeto1.php**
+Creamos el fichero [generarObjeto1.php](Recursos/generarObjeto1.php) con **Destruct()**:
 
 
 ~~~
@@ -299,7 +299,7 @@ Este cambio introduce:
 
 - El método **__destruct()** que se dispara automáticamente al final del script (cuando el objeto es destruido), lo que lo hace perfecto para ilustrar la explotación por deserialización.
 
-Vamos a modificar el objeto malicioso para introducir un código a ejecutar. El atacante de esta manera, podría serializar el objeto introduciendo un código para ejecutar en nuestro servidor, Este archivo lo llamo **explotarGenerarObjeto1.php**:
+Ahora creamos el archivo [explotarGenerarObjeto1.php](Recursos/explotarGenerarObjeto1.php) para  modificar el objeto malicioso para introducir un código a ejecutar. El atacante de esta manera, podría serializar el objeto introduciendo un código para ejecutar en nuestro servidor:
 
 ~~~
 <?php
@@ -371,33 +371,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 🧪 Para la prueba
 
-1. Marca "Sí" en la opción de administrador.
+1. Marcamos "Sí" en la opción de administrador.
 
-2. Escribe un comando como **whoami, ls -l, id**, etc.
+2. Escribimos un comando como **whoami, ls -l, id**, etc.
 
 3. Se serializa el objeto incluyendo ese comando.
 
 4. Al deserializarlo en **MostrarObjeto.php**, se ejecuta automáticamente en el **__destruct(**).
 
-![](images/UD7.png)
+![destruct](images/6.png)
 
 El atacante habría inyectado en la serialización la ejecución del comando `ls -l /tmp/output.txt`pero podría haber sido cualquier otro comando.
 
-![](images/UD8.png)
+![objeto deserializado](images/7.png)
 
 Vemos en el resultado que la ejecución no parece anómalo, pero veamos que ha pasado en el servidor.
 
-![](images/UD9.png)
+![objeto ls](images/8.png)
 
 Veamos que contiene el archivo `/tmp/output.txt`. 
 
-Como nosotros extamos usando docker, o bien entramos dentros del servidor apacher y vemos el archivo, o ejecutamos el siguiente comando docker para que nos lo muestre:
+Como nosotros estamos usando docker, o bien entramos al servidor apache y vemos el archivo, o ejecutamos el siguiente comando docker para que nos lo muestre:
 
 ~~~
 docker exec -it lamp-php83 /bin/bash -c 'cat /tmp/output.txt'
 ~~~
 
-![](images/UD10.png)
+![resultado](images/9.png)
 
 Como vemos, hemos podido ejecutar comandos dentro del servidor. En este caso con el usuario **www-data**, pero si lo combinamos con otros ataques como escalada de privilegios, podríamos haber ejecutado cualquier comando.
 
